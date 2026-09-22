@@ -103,6 +103,29 @@ body {
     letter-spacing: 0.02em;
 }
 
+.pwa-install-banner {
+    margin-top: 18px;
+}
+
+.btn-install {
+    display: inline-block;
+    background-color: var(--text-primary);
+    color: var(--text-light);
+    border: 1px solid var(--text-primary);
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-install:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
 /* ==========================================================
    메인 콘텐츠 그리드 (2단)
    ========================================================== */

@@ -33,7 +33,9 @@ def index():
 # PWA 매니페스트 및 서비스 워커 서빙 라우트
 @app.route("/manifest.json")
 def manifest():
-    return app.send_static_file("manifest.json")
+    response = app.send_static_file("manifest.json")
+    response.headers["Content-Type"] = "application/manifest+json"
+    return response
 
 @app.route("/sw.js")
 def service_worker():

@@ -1,8 +1,10 @@
 {
+  "id": "/",
   "name": "AI 커리어 포트폴리오 스튜디오",
   "short_name": "커리어 스튜디오",
   "description": "차별화된 경험과 성과를 기록하는 하이엔드 AI 커리어 아카이브",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#111111",
@@ -12,13 +14,25 @@
       "src": "/static/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/static/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

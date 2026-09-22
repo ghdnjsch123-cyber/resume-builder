@@ -174,4 +174,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
         });
     }
+
+    // 9. PWA 설치 프롬프트 (beforeinstallprompt) 이벤트 처리
+    let deferredPrompt;
+    const installBanner = document.getElementById("pwa-install-banner");
+    const installBtn = document.getElementById("pwa-install-btn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+        // 브라우저 기본 미니 정보바(mini-infobar) 방지
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // UI에 커스텀 설치 버튼 노출
+        if (installBanner) {
+            installBanner.style.display = "block";
+        }
+    });
+
+    if (installBtn) {
+        installBtn.addEventListener("click", async () => {
+            if (!deferredPrompt) return;
+
+            // 브라우저 설치 대화상자 호출
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log("사용자 설치 선택:", outcome);
+
+            deferredPrompt = null;
+            if (installBanner) {
+                installBanner.style.display = "none";
+            }
+        });
+    }
+
+    window.addEventListener("appinstalled", () => {
+        console.log("PWA 앱이 성공적으로 설치되었습니다.");
+        if (installBanner) {
+            installBanner.style.display = "none";
+        }
+        deferredPrompt = null;
+    });
 });
