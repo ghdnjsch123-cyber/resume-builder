@@ -30,6 +30,17 @@ def index():
     logger.info("메인 페이지('/') 접근 요청")
     return render_template("index.html")
 
+# PWA 매니페스트 및 서비스 워커 서빙 라우트
+@app.route("/manifest.json")
+def manifest():
+    return app.send_static_file("manifest.json")
+
+@app.route("/sw.js")
+def service_worker():
+    response = app.send_static_file("sw.js")
+    response.headers["Content-Type"] = "application/javascript"
+    return response
+
 # AI 이력서 및 포트폴리오 생성 API 라우트
 @app.route("/generate", methods=["POST"])
 def generate():
