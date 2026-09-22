@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 커리어 포트폴리오 스튜디오 | Executive Edition</title>
+    <!-- 고급 에디토리얼 서체 (Cormorant Garamond & Noto Serif KR) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 상단 헤더 영역 -->
+        <header class="app-header">
+            <div class="header-emblem" aria-hidden="true">
+                <svg viewBox="0 0 60 60" class="emblem-svg">
+                    <rect x="5" y="5" width="50" height="50" fill="none" stroke="#111111" stroke-width="1.2" />
+                    <rect x="12" y="12" width="36" height="36" fill="none" stroke="#888888" stroke-width="0.8" stroke-dasharray="2 2" />
+                    <line x1="30" y1="8" x2="30" y2="52" stroke="#111111" stroke-width="0.8" />
+                    <line x1="8" y1="30" x2="52" y2="30" stroke="#111111" stroke-width="0.8" />
+                    <circle cx="30" cy="30" r="4" fill="#111111" />
+                </svg>
+            </div>
+            <div class="brand-badge">EXECUTIVE CAREER ATELIER</div>
+            <h1>AI 커리어 포트폴리오 스튜디오</h1>
+            <p class="subtitle">전문성과 성취를 기록하는 프리미엄 커리어 아카이브</p>
+        </header>
+
+        <!-- 본문 2단 그리드 -->
+        <main class="main-content">
+            <!-- 좌측: 입력 폼 섹션 -->
+            <section class="form-section">
+                <div class="section-title-wrap">
+                    <h2>경력 및 프로젝트 명세</h2>
+                    <span class="section-subtitle">Profile Specification</span>
+                </div>
+
+                <form id="resume-form">
+                    <!-- 이름 입력 -->
+                    <div class="form-group">
+                        <label for="name">이름 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="예: 홍길동" required>
+                    </div>
+
+                    <!-- 지원 직무 입력 -->
+                    <div class="form-group">
+                        <label for="job-title">지원 직무 <span class="required">*</span></label>
+                        <input type="text" id="job-title" name="job_title" placeholder="예: 최고 기술 책임자 (CTO) / 수석 백엔드 엔지니어" required>
+                    </div>
+
+                    <!-- 경력 사항 입력 -->
+                    <div class="form-group">
+                        <label for="experience">주요 경력 및 업적 <span class="required">*</span></label>
+                        <textarea id="experience" name="experience" rows="4" placeholder="조직을 리드하며 달성한 성과와 주요 직무 경력을 작성해 주세요." required></textarea>
+                    </div>
+
+                    <!-- 프로젝트 경험 입력 -->
+                    <div class="form-group">
+                        <label for="projects">프로젝트 상세 경험 <span class="required">*</span></label>
+                        <textarea id="projects" name="projects" rows="5" placeholder="수행한 프로젝트의 개요, 기술 스택, 핵심 문제 해결 과정 및 성과를 구체적으로 기술해 주세요." required></textarea>
+                    </div>
+
+                    <!-- 어조 (Tone) 선택 -->
+                    <div class="form-group">
+                        <label for="tone">문서 문체 (Tone)</label>
+                        <select id="tone" name="tone">
+                            <option value="신뢰감과 설득력을 갖춘 전문가의 어조">신뢰감과 설득력을 갖춘 전문가의 어조 (권장)</option>
+                            <option value="당당하고 전략적인 리더의 어조">당당하고 전략적인 리더의 어조</option>
+                            <option value="혁신적이고 통찰력 있는 어조">혁신적이고 통찰력 있는 어조</option>
+                            <option value="간결하고 명료한 분석적 어조">간결하고 명료한 분석적 어조</option>
+                        </select>
+                    </div>
+
+                    <!-- Prompt 모드 선택 -->
+                    <div class="form-group">
+                        <label>작성 모드 (Engineering Mode)</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="prompt_type" value="B" checked>
+                                <span class="radio-custom"></span>
+                                <div class="radio-text">
+                                    <strong>Prompt B (전문가 분석 모드)</strong>
+                                    <span class="radio-desc">STAR 기법 기반 & 정량적 성과 및 비즈니스 임팩트 중심 기술</span>
+                                </div>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="prompt_type" value="A">
+                                <span class="radio-custom"></span>
+                                <div class="radio-text">
+                                    <strong>Prompt A (표준 에디토리얼 모드)</strong>
+                                    <span class="radio-desc">단정하고 가독성 높은 구조 중심의 표준 서식</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 생성 버튼 -->
+                    <button type="submit" id="generate-btn" class="btn-primary">
+                        AI 이력서 및 포트폴리오 생성하기
+                    </button>
+                </form>
+            </section>
+
+            <!-- 우측: 결과 표시 섹션 -->
+            <section class="result-section">
+                <div class="result-header">
+                    <div class="section-title-wrap">
+                        <h2>포트폴리오 문서</h2>
+                        <span class="section-subtitle">Generated Document</span>
+                    </div>
+                    <!-- 복사 및 다운로드 액션 버튼 -->
+                    <div class="action-buttons" id="action-buttons" style="display: none;">
+                        <button type="button" id="copy-btn" class="btn-secondary">문서 복사</button>
+                        <button type="button" id="download-btn" class="btn-secondary">Markdown 다운로드</button>
+                    </div>
+                </div>
+
+                <!-- 오류 메시지 박스 -->
+                <div id="error-box" class="alert alert-error" style="display: none;"></div>
+
+                <!-- 로딩 표시 -->
+                <div id="loading-box" class="loading-container" style="display: none;">
+                    <div class="spinner"></div>
+                    <p class="loading-text">인공지능이 경력 사항과 프로젝트 역량을 정교하게 분석하고 있습니다.<br><small>잠시만 기다려 주십시오.</small></p>
+                </div>
+
+                <!-- 초기 안내 문구 -->
+                <div id="placeholder-box" class="placeholder-container">
+                    <div class="placeholder-inner">
+                        <div class="placeholder-icon"></div>
+                        <p class="placeholder-title">작성 대기 중</p>
+                        <p class="placeholder-desc">좌측 양식에 기본 정보를 입력하고 <strong>[AI 이력서 및 포트폴리오 생성하기]</strong>를 클릭하시면 정교하게 구성된 마크다운 문서가 출력됩니다.</p>
+                    </div>
+                </div>
+
+                <!-- 결과 텍스트 영역 -->
+                <div id="result-box" class="result-container" style="display: none;">
+                    <pre id="result-content"></pre>
+                </div>
+            </section>
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="app-footer">
+            <p>Executive Career Atelier &middot; Powered by Google Gemini 3.5 Flash Lite</p>
+        </footer>
+    </div>
+
+    <!-- 외부 자바스크립트 -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
