@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from dotenv import load_dotenv
 from google import genai
 
@@ -33,14 +33,17 @@ def index():
 # PWA 매니페스트 및 서비스 워커 서빙 라우트
 @app.route("/manifest.json")
 def manifest():
-    response = app.send_static_file("manifest.json")
-    response.headers["Content-Type"] = "application/manifest+json"
+    static_dir = os.path.join(app.root_path, "static")
+    response = send_from_directory(static_dir, "manifest.json", mimetype="application/manifest+json")
+    response.headers["Cache-Control"] = "no-cache"
     return response
 
 @app.route("/sw.js")
 def service_worker():
-    response = app.send_static_file("sw.js")
-    response.headers["Content-Type"] = "application/javascript"
+    static_dir = os.path.join(app.root_path, "static")
+    response = send_from_directory(static_dir, "sw.js", mimetype="application/javascript")
+    response.headers["Cache-Control"] = "no-cache"
+    response.headers["Service-Worker-Allowed"] = "/"
     return response
 
 # AI 이력서 및 포트폴리오 생성 API 라우트

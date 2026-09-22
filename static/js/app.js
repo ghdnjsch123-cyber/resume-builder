@@ -180,29 +180,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const installBanner = document.getElementById("pwa-install-banner");
     const installBtn = document.getElementById("pwa-install-btn");
 
+    // 이미 PWA 앱(독립 창)으로 실행 중인지 확인
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    if (isStandalone && installBanner) {
+        installBanner.style.display = "none";
+    }
+
     window.addEventListener("beforeinstallprompt", (e) => {
-        // 브라우저 기본 미니 정보바(mini-infobar) 방지
         e.preventDefault();
         deferredPrompt = e;
-
-        // UI에 커스텀 설치 버튼 노출
-        if (installBanner) {
+        if (installBanner && !isStandalone) {
             installBanner.style.display = "block";
         }
     });
 
     if (installBtn) {
         installBtn.addEventListener("click", async () => {
-            if (!deferredPrompt) return;
-
-            // 브라우저 설치 대화상자 호출
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log("사용자 설치 선택:", outcome);
-
-            deferredPrompt = null;
-            if (installBanner) {
-                installBanner.style.display = "none";
+            if (deferredPrompt) {
+                // 브라우저 네이티브 설치 대화상자 호출
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log("사용자 설치 선택:", outcome);
+                deferredPrompt = null;
+                if (installBanner && outcome === "accepted") {
+                    installBanner.style.display = "none";
+                }
+            } else {
+                // beforeinstallprompt를 지원하지 않거나 지연될 경우 수동 안내
+                alert("크롬 브라우저 우측 상단의 점 세 개(⋮) 메뉴를 누른 후, [앱 설치] 또는 [홈 화면에 추가]를 선택해 주세요.");
             }
         });
     }
